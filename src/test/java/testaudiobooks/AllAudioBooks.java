@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
 public class AllAudioBooks {
     private static Logger Log = LogManager.getLogger(AllAudioBooks.class);
@@ -41,8 +40,6 @@ public class AllAudioBooks {
            throw e;
        }
        Log.info("Page allbooks/?booktype=audiobook is opened successfully");
-
-
    }
 
 

@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Auto-tests-otus" parallel="classes" thread-count="4">
+
+<!--
+    <listeners>
+        <listener class-name="TestNGListn.Sberb2bListener"/>
+    </listeners>
+-->
+
+
+    <test name="homePage-tests">
+
+        <!--<parameter name="hostname"  value="https://otus.ru/" />-->
+        <!--<parameter name="browser"  value="Chrome" />-->
+
+
+        <classes>
+            <class name="testaudiobooks.Lab4Steps"/>
+        </classes>
+    </test>
+</suite>

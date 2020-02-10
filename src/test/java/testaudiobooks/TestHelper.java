@@ -13,15 +13,15 @@ public class TestHelper {
     private static Logger Log = LogManager.getLogger(TestHelper.class);
 
 
-    public static void getURL(WebDriver driver, String hostname) throws Exception {
-        Log.info("Try to get " + hostname);
+    public static void getURL(WebDriver driver, String url) throws Exception {
+        Log.info("Try to get " + url);
         driver.manage().window().maximize();
 
         try {
-            driver.get(hostname);
-            Log.info(hostname + " was got successfully");
+            driver.get(url);
+            Log.info(url + " was got successfully");
         } catch (Exception e) {
-            Log.fatal("Host - " + hostname +" isn't available");
+            Log.fatal("Host - " + url +" isn't available");
             Assert.fail();
         }
     }
@@ -38,6 +38,4 @@ public class TestHelper {
         }
         Log.info(nameOfElem + " was clicked successfully");
     }
-
-
 }

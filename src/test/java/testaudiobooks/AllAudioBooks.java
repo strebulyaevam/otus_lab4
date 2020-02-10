@@ -43,7 +43,7 @@ public class AllAudioBooks {
    }
 
 
-    public List<WebElement> scrollToEnd() throws Exception {
+    public List<WebElement> findAllElements() throws Exception {
         List<WebElement> elements = Collections.EMPTY_LIST;
         WebElement loader;
         Actions actions = new Actions(driver);
@@ -54,25 +54,21 @@ public class AllAudioBooks {
             String style = driver.findElement(loc_loader).getAttribute("style");
             Log.info(">>> style:" + style+ ", isDisplayed " + loader.isDisplayed());
 
-         if (loader.isDisplayed()){
-                 actions.moveToElement(driver.findElement(loc_bottomelem2)).perform();
-                 continue;
-         }
-         else{
-             try {
-                     waiter
-                             .until(ExpectedConditions.visibilityOfElementLocated(loc_loader));
-                     Log.info("Loader have become visible. Going to wait for Loader will be invisible");
-                     actions.moveToElement(driver.findElement(loc_bottomelem2)).perform();
-                     continue;
+            if (loader.isDisplayed()) {
+                actions.moveToElement(driver.findElement(loc_bottomelem2)).perform();
+                continue;
+            } else {
+                try {
+                    waiter.until(ExpectedConditions.visibilityOfElementLocated(loc_loader));
+                    Log.info("Loader have become visible. Going to wait for Loader will be invisible");
+                    actions.moveToElement(driver.findElement(loc_bottomelem2)).perform();
+                    continue;
 
-             } catch (Exception e) {
-                 Log.info("Loader is already NOT visible", e);
-                 break;
-             }
-
+                } catch (Exception e) {
+                    Log.info("Loader is already NOT visible", e);
+                    break;
+                }
             }
-
         } while (true);
 
         elements = driver.findElements(loc_booklinks);

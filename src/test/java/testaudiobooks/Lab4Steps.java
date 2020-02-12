@@ -43,16 +43,15 @@ public class Lab4Steps {
         TestHelper.getURL(driver, hostname);
         AllAudioBooks allAudioBooks = new AllAudioBooks(driver);
         allAudioBooks.waitForPageIsLoaded(driver);
-        List<WebElement> elements = allAudioBooks.findAllElements();
-        Log.info("Found elemets: " + elements.size());
+        List<String> links = allAudioBooks.findAllLinks();
+        Log.info("Found links: " + links.size());
 
         Book book = new Book(driver);
-        int i=0;
-        for (WebElement element : elements) {
-            String href = element.getAttribute("href");
-            TestHelper.getURL(driver, href);
+        int i = 0;
+        for (String link : links) {
+            TestHelper.getURL(driver, link);
             book.printInfo();
-            Log.info("Processed " + (++i) + " of " + elements.size());
+            Log.info("Processed " + (++i) + " of " + links.size());
         }
     }
 

@@ -1,5 +1,6 @@
 package testaudiobooks;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -9,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class AllAudioBooks {
    }
 
 
-    public List<WebElement> findAllElements() throws Exception {
+    public List<String> findAllLinks() throws Exception {
         List<WebElement> elements = Collections.EMPTY_LIST;
         WebElement loader;
         Actions actions = new Actions(driver);
@@ -73,7 +75,19 @@ public class AllAudioBooks {
 
         elements = driver.findElements(loc_booklinks);
         Log.info("Scroll complete, elements.size() = " + elements.size());
-        return elements;
+
+        if (elements == null)
+            return Collections.EMPTY_LIST;
+
+        List<String> links = new ArrayList<>();
+        for (WebElement element : elements) {
+            String link = element.getAttribute("href");
+            if (link != null && link.length() > 0) {
+                links.add(link);
+            }
+        }
+
+        return links;
     }
 
 

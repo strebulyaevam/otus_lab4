@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Book {
 
     private static Logger Log = LogManager.getLogger(Book.class);
-    private static Logger LogBookInfo = LogManager.getLogger(Book.class);
+    private static Logger LogBookInfo = LogManager.getLogger("reportLogger");
 
     WebDriver driver;
     WebDriverWait waiter;

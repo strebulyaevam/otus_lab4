@@ -61,7 +61,7 @@ public class Lab4Steps {
     public void quitBrowser (String browser) {
         if(driver!=null){
             Log.info("Quit from " + browser);
-            //driver.quit();
+            driver.quit();
         }
     }
 }

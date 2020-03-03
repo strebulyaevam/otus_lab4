@@ -1,5 +1,6 @@
 package testaudiobooks;
 
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -26,18 +27,27 @@ public class Book {
 //    By loc_lincfragment = By.xpath("(//div[@class = 'nkk-audio-excerpts nkk-download-block ng-scope']//div[@class = 'p-book-download-link m-audio-mp3 ng-scope']//a[@class='ng-binding'])[1]");
     By loc_lincfragment = By.xpath("(//a[@class='nkk-file-download__link'])[1]");
 
-    public void printInfo ()
+    public void printInfo (CSVPrinter printer)
     {
         try {
             Log.info("Try to get info from link - " + driver.getCurrentUrl());
             waiter.until(ExpectedConditions.presenceOfElementLocated(loc_title));
 
+            String link = driver.getCurrentUrl();
+            String title = driver.findElement(loc_title).getText();
+            String author = driver.findElement(loc_author).getText();
+            String price = driver.findElement(loc_price).getText();
+            String linkToFragment = driver.findElement(loc_lincfragment).getAttribute("href");
+
+            //"Link", "Title", "Author", "PriceForAudioVer", "LinkToFragment"
+            printer.printRecord(link, title, author, price, linkToFragment);
+
             LogBookInfo.info("--------------Book--------------");
-            LogBookInfo.info("Link - " + driver.getCurrentUrl());
-            LogBookInfo.info("Title - " + driver.findElement(loc_title).getText());
-            LogBookInfo.info("Author - " + driver.findElement(loc_author).getText());
-            LogBookInfo.info("Price for audio ver - " + driver.findElement(loc_price).getText());
-            LogBookInfo.info("Link to fragment - " + driver.findElement(loc_lincfragment).getAttribute("href"));
+            LogBookInfo.info("Link - " + link);
+            LogBookInfo.info("Title - " + title);
+            LogBookInfo.info("Author - " + author);
+            LogBookInfo.info("Price for audio ver - " + price);
+            LogBookInfo.info("Link to fragment - " + linkToFragment);
             LogBookInfo.info("--------------------------------");
             Log.info("Info about book " + driver.getCurrentUrl() + "has been got successfully");
 

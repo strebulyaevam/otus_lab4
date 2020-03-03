@@ -1,6 +1,8 @@
 package testaudiobooks;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +15,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
 
+import java.io.FileWriter;
 import java.util.List;
 
 
@@ -47,11 +50,22 @@ public class Lab4Steps {
         Log.info("Found links: " + links.size());
 
         Book book = new Book(driver);
-        int i = 0;
-        for (String link : links) {
-            TestHelper.getURL(driver, link);
-            book.printInfo();
-            Log.info("Processed " + (++i) + " of " + links.size());
+
+        final String[] HEADERS = {"Link", "Title", "Author", "PriceForAudioVer", "LinkToFragment"};
+        FileWriter fileWriter = new FileWriter("books.csv");
+        try (CSVPrinter printer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT.withHeader(HEADERS))) {
+            int i = 0;
+            for (String link : links) {
+                TestHelper.getURL(driver, link);
+                book.printInfo(printer);
+                Log.info("Processed " + (++i) + " of " + links.size());
+
+                // this is for debug
+                /*
+                if (i > 10)
+                    break;
+                 */
+            }
         }
     }
 

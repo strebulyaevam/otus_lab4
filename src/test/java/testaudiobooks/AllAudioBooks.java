@@ -1,5 +1,7 @@
 package testaudiobooks;
 
+import config.Lab4Config;
+import driverconfig.DriverServies;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,10 +21,11 @@ public class AllAudioBooks {
 
     WebDriver driver;
     WebDriverWait waiter;
+    DriverServies driverServies;
 
-    public AllAudioBooks(WebDriver driver) {
+    public AllAudioBooks(WebDriver driver,  Lab4Config cfg) {
         this.driver = driver;
-        waiter = new WebDriverWait(driver, 4);
+        waiter = new WebDriverWait(driver, cfg.waittimeout());
     }
 
     By loc_loader = By.cssSelector("div.js-page-loader.page-loader");

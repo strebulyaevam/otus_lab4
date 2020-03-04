@@ -1,5 +1,7 @@
 package testaudiobooks;
 
+import config.Lab4Config;
+import driverconfig.DriverServies;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +17,12 @@ public class Book {
 
     WebDriver driver;
     WebDriverWait waiter;
+    DriverServies driverServies;
 
-    public Book(WebDriver driver) {
+
+    public Book(WebDriver driver, Lab4Config cfg) {
         this.driver = driver;
-        waiter = new WebDriverWait(driver, 4);
+        waiter = new WebDriverWait(driver, cfg.waittimeout());
     }
 
     By loc_title = By.cssSelector("div.l-book-description.position-top div.b-headers span");
